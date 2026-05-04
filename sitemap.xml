@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <url>
+    <loc>https://stirring-sopapillas-443c20.netlify.app/</loc>
+    <priority>1.0</priority>
+  </url>
+
+  <url>
+    <loc>https://stirring-sopapillas-443c20.netlify.app/cm-to-inches</loc>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://stirring-sopapillas-443c20.netlify.app/kg-to-lbs</loc>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://stirring-sopapillas-443c20.netlify.app/age-calculator</loc>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://stirring-sopapillas-443c20.netlify.app/word-counter</loc>
+    <priority>0.8</priority>
+  </url>
+
+</urlset>
