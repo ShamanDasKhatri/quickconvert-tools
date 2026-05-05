@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Age Calculator - Find Your Exact Age Online Free</title>
+  <meta name="description" content="Calculate your exact age in years, months and days instantly. Free online age calculator. No signup needed.">
+  <style>
+    body { font-family: Arial, sans-serif; background: #f5f5f5; margin: 0; padding: 0; }
+    header { background: #2563eb; color: white; padding: 15px 20px; font-size: 22px; font-weight: bold; }
+    header a { color: white; text-decoration: none; }
+    header span { font-size: 14px; font-weight: normal; margin-left: 10px; opacity: 0.8; }
+    .container { max-width: 600px; margin: 40px auto; background: white; border-radius: 12px; padding: 30px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+    h1 { color: #1e293b; font-size: 24px; margin-bottom: 8px; }
+    p { color: #64748b; margin-bottom: 24px; }
+    label { display: block; color: #1e293b; font-size: 15px; font-weight: bold; margin-bottom: 8px; }
+    input { width: 100%; padding: 14px; font-size: 18px; border: 2px solid #e2e8f0; border-radius: 8px; margin-bottom: 16px; box-sizing: border-box; }
+    input:focus { outline: none; border-color: #2563eb; }
+    button { width: 100%; padding: 14px; background: #2563eb; color: white; font-size: 18px; border: none; border-radius: 8px; cursor: pointer; }
+    button:hover { background: #1d4ed8; }
+    .result { margin-top: 20px; padding: 20px; background: #f0fdf4; border: 2px solid #bbf7d0; border-radius: 8px; display: none; }
+    .result-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #d1fae5; }
+    .result-row:last-child { border-bottom: none; }
+    .result-label { font-size: 15px; color: #64748b; }
+    .result-value { font-size: 22px; font-weight: bold; color: #15803d; }
+    .related { margin-top: 30px; border-top: 1px solid #e2e8f0; padding-top: 20px; }
+    .related h3 { color: #1e293b; font-size: 16px; margin-bottom: 12px; }
+    .related a { display: inline-block; margin: 4px; padding: 8px 14px; background: #eff6ff; color: #2563eb; border-radius: 6px; text-decoration: none; font-size: 14px; }
+    .faq { margin-top: 30px; }
+    .faq h3 { color: #1e293b; font-size: 18px; margin-bottom: 16px; }
+    .faq-item { margin-bottom: 16px; }
+    .faq-item b { color: #1e293b; display: block; margin-bottom: 4px; }
+    .faq-item p { margin: 0; color: #64748b; font-size: 14px; }
+    footer { text-align: center; padding: 20px; color: #94a3b8; font-size: 13px; }
+  </style>
+</head>
+<body>
+<header>
+  <a href="../">🔧 QuickConvert Tools</a>
+  <span>Free online converters</span>
+</header>
+<div class="container">
+  <h1>Age Calculator</h1>
+  <p>Enter your date of birth below and find out your exact age in years, months and days instantly!</p>
+  <label>Your Date of Birth:</label>
+  <input type="date" id="dob">
+  <button onclick="calculate()">Calculate My Age ➜</button>
+  <div class="result" id="result">
+    <div class="result-row">
+      <span class="result-label">Years</span>
+      <span class="result-value" id="years">0</span>
+    </div>
+    <div class="result-row">
+      <span class="result-label">Months</span>
+      <span class="result-value" id="months">0</span>
+    </div>
+    <div class="result-row">
+      <span class="result-label">Days</span>
+      <span class="result-value" id="days">0</span>
+    </div>
+    <div class="result-row">
+      <span class="result-label">Total days alive</span>
+      <span class="result-value" id="totaldays">0</span>
+    </div>
+  </div>
+  <div class="related">
+    <h3>🔗 Also try these tools:</h3>
+    <a href="../mm-to-inches/">MM to Inches</a>
+    <a href="../cm-to-inches/">CM to Inches</a>
+    <a href="../kg-to-lbs/">KG to LBS</a>
+    <a href="../word-counter/">Word Counter</a>
+  </div>
+  <div class="faq">
+    <h3>Common Questions</h3>
+    <div class="faq-item">
+      <b>How does the age calculator work?</b>
+      <p>It takes your date of birth and calculates the exact difference between that date and today in years, months and days.</p>
+    </div>
+    <div class="faq-item">
+      <b>Is this age calculator accurate?</b>
+      <p>Yes. It accounts for leap years and different month lengths to give you the most accurate result.</p>
+    </div>
+    <div class="faq-item">
+      <b>Can I calculate someone else's age?</b>
+      <p>Yes! Just enter any date of birth and it will calculate the age for that person.</p>
+    </div>
+  </div>
+</div>
+<footer>© 2025 QuickConvert Tools — Free online tools for everyone</footer>
+<script>
+  function calculate() {
+    var dob = document.getElementById('dob').value;
+    if (!dob) { alert('Please enter your date of birth first!'); return; }
+    var birthDate = new Date(dob);
+    var today = new Date();
+    var years = today.getFullYear() - birthDate.getFullYear();
+    var months = today.getMonth() - birthDate.getMonth();
+    var days = today.getDate() - birthDate.getDate();
+    if (days < 0) { months--; days += new Date(today.getFullYear(), today.getMonth(), 0).getDate(); }
+    if (months < 0) { years--; months += 12; }
+    var totalDays = Math.floor((today - birthDate) / (1000 * 60 * 60 * 24));
+    document.getElementById('years').innerText = years;
+    document.getElementById('months').innerText = months;
+    document.getElementById('days').innerText = days;
+    document.getElementById('totaldays').innerText = totalDays.toLocaleString();
+    document.getElementById('result').style.display = 'block';
+  }
+</script>
+</body>
+</html>
