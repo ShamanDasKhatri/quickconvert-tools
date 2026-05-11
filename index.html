@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QuickConvert Tools - Free Online Converter and Calculator Tools</title>
+<meta name="description" content="Free online converter and calculator tools for length, weight, health, finance, cooking and science. 100% free, instant results, no signup needed.">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f8fafc;color:#1e293b;}
+nav{background:#fff;border-bottom:1px solid #e2e8f0;padding:14px 24px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:999;box-shadow:0 1px 4px rgba(0,0,0,.05);}
+.logo{font-weight:700;font-size:18px;color:#2563eb;cursor:pointer;display:flex;align-items:center;gap:8px;}
+.nav-links{display:flex;gap:8px;flex-wrap:wrap;}
+.nav-links a{font-size:12px;color:#64748b;text-decoration:none;cursor:pointer;padding:5px 9px;border-radius:6px;}
+.nav-links a:hover{color:#2563eb;background:#eff6ff;}
+.page{display:none;}
+.page.active{display:block;}
+.hero{background:linear-gradient(135deg,#2563eb,#1d4ed8);padding:52px 20px;text-align:center;color:#fff;}
+.hero h1{font-size:32px;font-weight:700;margin-bottom:10px;}
+.hero p{font-size:16px;opacity:.9;margin-bottom:26px;}
+.search-wrap{max-width:480px;margin:0 auto;display:flex;border-radius:10px;overflow:hidden;box-shadow:0 4px 14px rgba(0,0,0,.2);}
+.search-wrap input{flex:1;padding:14px 18px;border:none;font-size:14px;outline:none;color:#1e293b;}
+.search-wrap button{padding:14px 20px;background:#1e40af;color:#fff;border:none;cursor:pointer;font-size:14px;font-weight:500;}
+.stats{background:#fff;display:flex;justify-content:center;gap:36px;padding:16px;border-bottom:1px solid #e2e8f0;flex-wrap:wrap;}
+.stat{text-align:center;}
+.stat b{display:block;font-size:20px;color:#2563eb;}
+.stat span{font-size:11px;color:#94a3b8;text-transform:uppercase;letter-spacing:.5px;}
+.sections{background:#f8fafc;padding:20px 16px;}
+.section{background:#fff;border-radius:14px;padding:24px;margin-bottom:16px;border:1px solid #e2e8f0;}
+.sec-label{font-size:11px;color:#94a3b8;text-transform:uppercase;letter-spacing:.8px;margin-bottom:4px;}
+.sec-title{font-size:17px;font-weight:600;color:#1e293b;margin-bottom:18px;}
+.cat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:10px;}
+.cat-card{padding:16px 10px;border:1px solid #e2e8f0;border-radius:12px;text-align:center;cursor:pointer;transition:.2s;background:#f8fafc;}
+.cat-card:hover{border-color:#2563eb;background:#eff6ff;transform:translateY(-2px);}
+.cat-icon{font-size:26px;margin-bottom:6px;}
+.cat-name{font-size:12px;font-weight:600;color:#1e293b;}
+.cat-count{font-size:11px;color:#94a3b8;margin-top:3px;}
+.tools-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;}
+.tool-card{padding:18px;border:1px solid #e2e8f0;border-radius:12px;cursor:pointer;transition:.2s;background:#f8fafc;}
+.tool-card:hover{border-color:#2563eb;background:#fff;box-shadow:0 4px 12px rgba(37,99,235,.1);transform:translateY(-2px);}
+.tool-icon{font-size:28px;margin-bottom:10px;}
+.tool-name{font-size:14px;font-weight:600;color:#1e293b;margin-bottom:4px;}
+.tool-desc{font-size:12px;color:#64748b;line-height:1.5;}
+.tool-tag{display:inline-block;margin-top:8px;padding:2px 10px;background:#eff6ff;color:#2563eb;border-radius:20px;font-size:11px;font-weight:500;}
+/* TOOL HERO */
+.tool-hero{background:linear-gradient(135deg,#2563eb,#1d4ed8);padding:32px 20px;color:#fff;}
+.tool-hero-inner{max-width:660px;margin:0 auto;}
+.breadcrumb{font-size:13px;opacity:.8;margin-bottom:12px;cursor:pointer;}
+.breadcrumb span{opacity:1;font-weight:500;}
+.tool-hero h1{font-size:26px;font-weight:700;margin-bottom:6px;}
+.tool-hero p{font-size:14px;opacity:.85;line-height:1.6;}
+.tool-body{max-width:660px;margin:0 auto;padding:20px 16px;}
+.converter-card{background:#fff;border-radius:14px;padding:24px;border:1px solid #e2e8f0;margin-bottom:16px;box-shadow:0 2px 8px rgba(0,0,0,.06);}
+.inp-label{font-size:13px;font-weight:600;color:#64748b;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;display:block;}
+.inp{width:100%;padding:14px;font-size:18px;border:2px solid #e2e8f0;border-radius:10px;margin-bottom:12px;box-sizing:border-box;color:#1e293b;transition:.2s;}
+.inp:focus{outline:none;border-color:#2563eb;box-shadow:0 0 0 3px rgba(37,99,235,.1);}
+.inp-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;}
+.btn{width:100%;padding:14px;background:#2563eb;color:#fff;font-size:16px;border:none;border-radius:10px;cursor:pointer;font-weight:600;transition:.2s;}
+.btn:hover{background:#1d4ed8;transform:translateY(-1px);box-shadow:0 4px 12px rgba(37,99,235,.3);}
+.result-box{margin-top:14px;padding:18px;background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:2px solid #86efac;border-radius:10px;text-align:center;display:none;}
+.res-label{font-size:12px;color:#16a34a;font-weight:500;text-transform:uppercase;letter-spacing:.5px;}
+.res-value{font-size:26px;font-weight:700;color:#15803d;margin-top:6px;}
+.table-card{background:#fff;border-radius:14px;padding:20px;border:1px solid #e2e8f0;margin-bottom:16px;}
+.card-title{font-size:15px;font-weight:600;color:#1e293b;margin-bottom:14px;}
+table{width:100%;border-collapse:collapse;}
+th{background:#f1f5f9;color:#475569;padding:10px 12px;text-align:left;font-size:12px;text-transform:uppercase;letter-spacing:.5px;}
+td{padding:10px 12px;border-bottom:1px solid #f1f5f9;font-size:14px;color:#64748b;}
+tr:last-child td{border:none;}
+tr:hover td{background:#f8fafc;}
+.related-card{background:#fff;border-radius:14px;padding:20px;border:1px solid #e2e8f0;margin-bottom:16px;}
+.tag-link{display:inline-flex;align-items:center;margin:4px;padding:8px 14px;background:#eff6ff;color:#2563eb;border-radius:8px;font-size:13px;cursor:pointer;font-weight:500;border:1px solid #bfdbfe;transition:.2s;}
+.tag-link:hover{background:#dbeafe;transform:translateY(-1px);}
+.faq-card{background:#fff;border-radius:14px;padding:20px;border:1px solid #e2e8f0;margin-bottom:16px;}
+.faq-item{padding:14px 0;border-bottom:1px solid #f1f5f9;}
+.faq-item:last-child{border:none;padding-bottom:0;}
+.faq-q{font-size:14px;font-weight:600;color:#1e293b;margin-bottom:5px;}
+.faq-a{font-size:13px;color:#64748b;line-height:1.6;}
+.seo-card{background:#fff;border-radius:14px;padding:20px;border:1px solid #e2e8f0;margin-bottom:16px;}
+.seo-card h2{font-size:16px;font-weight:600;color:#1e293b;margin-bottom:10px;}
+.seo-card p{font-size:13px;color:#64748b;line-height:1.7;margin-bottom:10px;}
+.age-result{margin-top:14px;display:none;}
+.age-row{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;background:#f8fafc;border-radius:10px;margin-bottom:8px;border:1px solid #e2e8f0;}
+.age-lbl{font-size:14px;color:#64748b;font-weight:500;}
+.age-val{font-size:22px;font-weight:700;color:#2563eb;}
+.textarea{width:100%;padding:14px;font-size:14px;border:2px solid #e2e8f0;border-radius:10px;height:180px;resize:vertical;box-sizing:border-box;font-family:inherit;color:#1e293b;transition:.2s;}
+.textarea:focus{outline:none;border-color:#2563eb;box-shadow:0 0 0 3px rgba(37,99,235,.1);}
+.stat-boxes{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0;}
+.stat-box{background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:16px;text-align:center;}
+.stat-box .num{font-size:30px;font-weight:700;color:#2563eb;}
+.stat-box .lbl{font-size:12px;color:#94a3b8;margin-top:3px;text-transform:uppercase;letter-spacing:.5px;}
+.clear-btn{width:100%;padding:12px;background:#f1f5f9;color:#64748b;font-size:14px;border:1px solid #e2e8f0;border-radius:10px;cursor:pointer;font-weight:500;}
+.clear-btn:hover{background:#e2e8f0;}
+footer{background:#0f172a;color:#64748b;padding:32px 20px;text-align:center;font-size:13px;}
+.footer-logo{font-size:18px;font-weight:700;color:#fff;margin-bottom:12px;}
+.footer-links{display:flex;justify-content:center;flex-wrap:wrap;gap:4px;margin-bottom:16px;}
+.footer-links a{color:#64748b;text-decoration:none;cursor:pointer;padding:4px 9px;border-radius:6px;font-size:12px;}
+.footer-links a:hover{color:#fff;background:#1e293b;}
+@media(max-width:600px){.hero h1{font-size:24px;}.tool-hero h1{font-size:20px;}.nav-links{display:none;}.stats{gap:16px;}.inp-row{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<nav>
+  <div class="logo" onclick="goHome()">🔧 QuickConvert</div>
+  <div class="nav-links">
+    <a onclick="showTool('mm-to-inches')">📐 Length</a>
+    <a onclick="showTool('kg-to-lbs')">⚖️ Weight</a>
+    <a onclick="showTool('bmi-calculator')">❤️ Health</a>
+    <a onclick="showTool('percentage-calculator')">💰 Finance</a>
+    <a onclick="showTool('cups-to-ml')">🍳 Cooking</a>
+    <a onclick="showTool('celsius-to-fahrenheit')">🔬 Science</a>
+    <a onclick="showTool('word-counter')">✍️ Text</a>
+  </div>
+</nav>
+
+<!-- HOME -->
+<div id="page-home" class="page active">
+  <div class="hero">
+    <h1>Free Online Converter Tools</h1>
+    <p>Convert units, calculate health stats, manage finances, cook smarter — instantly free</p>
+    <div class="search-wrap">
+      <input type="text" id="search" placeholder="Search 15+ tools... e.g. BMI, percentage" oninput="searchTools()">
+      <button>Search</button>
+    </div>
+  </div>
+  <div class="stats">
+    <div class="stat"><b>15+</b><span>Free Tools</span></div>
+    <div class="stat"><b>6</b><span>Categories</span></div>
+    <div class="stat"><b>100%</b><span>Free Forever</span></div>
+    <div class="stat"><b>Zero</b><span>Signup</span></div>
+  </div>
+  <div class="sections">
+    <div class="section">
+      <div class="sec-label">Browse by category</div>
+      <div class="sec-title">All Categories</div>
+      <div class="cat-grid">
+        <div class="cat-card" onclick="showTool('mm-to-inches')"><div class="cat-icon">📏</div><div class="cat-name">Length</div><div class="cat-count">2 tools</div></div>
+        <div class="cat-card" onclick="showTool('kg-to-lbs')"><div class="cat-icon">⚖️</div><div class="cat-name">Weight</div><div class="cat-count">1 tool</div></div>
+        <div class="cat-card" onclick="showTool('bmi-calculator')"><div class="cat-icon">❤️</div><div class="cat-name">Health</div><div class="cat-count">3 tools</div></div>
+        <div class="cat-card" onclick="showTool('percentage-calculator')"><div class="cat-icon">💰</div><div class="cat-name">Finance</div><div class="cat-count">3 tools</div></div>
+        <div class="cat-card" onclick="showTool('cups-to-ml')"><div class="cat-icon">🍳</div><div class="cat-name">Cooking</div><div class="cat-count">3 tools</div></div>
+        <div class="cat-card" onclick="showTool('celsius-to-fahrenheit')"><div class="cat-icon">🔬</div><div class="cat-name">Science</div><div class="cat-count">3 tools</div></div>
+        <div class="cat-card" onclick="showTool('age-calculator')"><div class="cat-icon">🧮</div><div class="cat-name">Calculator</div><div class="cat-count">1 tool</div></div>
+        <div class="cat-card" onclick="showTool('word-counter')"><div class="cat-icon">✍️</div><div class="cat-name">Text Tools</div><div class="cat-count">1 tool</div></div>
+      </div>
+    </div>
+    <div class="section">
+      <div class="sec-label">All tools</div>
+      <div class="sec-title">Popular Free Tools</div>
+      <div class="tools-grid" id="tools-grid">
+        <div class="tool-card" onclick="showTool('mm-to-inches')"><div class="tool-icon">📐</div><div class="tool-name">MM to Inches</div><div class="tool-desc">Convert millimeters to inches instantly. Perfect for engineering, DIY and construction.</div><span class="tool-tag">Length</span></div>
+        <div class="tool-card" onclick="showTool('cm-to-inches')"><div class="tool-icon">📏</div><div class="tool-name">CM to Inches</div><div class="tool-desc">Convert centimeters to inches with feet output. Great for height conversions.</div><span class="tool-tag">Length</span></div>
+        <div class="tool-card" onclick="showTool('kg-to-lbs')"><div class="tool-icon">⚖️</div><div class="tool-name">KG to LBS</div><div class="tool-desc">Convert kilograms to pounds instantly. Used for fitness, shipping and daily use.</div><span class="tool-tag">Weight</span></div>
+        <div class="tool-card" onclick="showTool('bmi-calculator')"><div class="tool-icon">❤️</div><div class="tool-name">BMI Calculator</div><div class="tool-desc">Calculate your Body Mass Index instantly. Find out if your weight is healthy.</div><span class="tool-tag">Health</span></div>
+        <div class="tool-card" onclick="showTool('calorie-calculator')"><div class="tool-icon">🔥</div><div class="tool-name">Calorie Calculator</div><div class="tool-desc">Calculate daily calories needed based on your age, weight, height and activity.</div><span class="tool-tag">Health</span></div>
+        <div class="tool-card" onclick="showTool('water-intake')"><div class="tool-icon">💧</div><div class="tool-name">Water Intake Calculator</div><div class="tool-desc">Find out how much water you should drink daily based on your weight.</div><span class="tool-tag">Health</span></div>
+        <div class="tool-card" onclick="showTool('percentage-calculator')"><div class="tool-icon">💯</div><div class="tool-name">Percentage Calculator</div><div class="tool-desc">Calculate percentages, percentage increase or decrease instantly. Free and easy.</div><span class="tool-tag">Finance</span></div>
+        <div class="tool-card" onclick="showTool('discount-calculator')"><div class="tool-icon">🏷️</div><div class="tool-name">Discount Calculator</div><div class="tool-desc">Find the final price after a discount. Perfect for shopping and sales calculations.</div><span class="tool-tag">Finance</span></div>
+        <div class="tool-card" onclick="showTool('tip-calculator')"><div class="tool-icon">🧾</div><div class="tool-name">Tip Calculator</div><div class="tool-desc">Calculate how much to tip at a restaurant. Split the bill among friends easily.</div><span class="tool-tag">Finance</span></div>
+        <div class="tool-card" onclick="showTool('cups-to-ml')"><div class="tool-icon">☕</div><div class="tool-name">Cups to ML</div><div class="tool-desc">Convert cups to milliliters for cooking and baking. Works with all recipe units.</div><span class="tool-tag">Cooking</span></div>
+        <div class="tool-card" onclick="showTool('oven-temperature')"><div class="tool-icon">🌡️</div><div class="tool-name">Oven Temperature Converter</div><div class="tool-desc">Convert oven temperatures between Fahrenheit, Celsius and Gas Mark instantly.</div><span class="tool-tag">Cooking</span></div>
+        <div class="tool-card" onclick="showTool('tbsp-to-cups')"><div class="tool-icon">🥄</div><div class="tool-name">Tablespoons to Cups</div><div class="tool-desc">Convert tablespoons to cups and teaspoons for perfect recipe measurements.</div><span class="tool-tag">Cooking</span></div>
+        <div class="tool-card" onclick="showTool('celsius-to-fahrenheit')"><div class="tool-icon">🌡️</div><div class="tool-name">Celsius to Fahrenheit</div><div class="tool-desc">Convert Celsius to Fahrenheit and back. Perfect for weather and science.</div><span class="tool-tag">Science</span></div>
+        <div class="tool-card" onclick="showTool('mph-to-kmh')"><div class="tool-icon">🚗</div><div class="tool-name">MPH to KM/H</div><div class="tool-desc">Convert miles per hour to kilometers per hour. Perfect for speed conversions.</div><span class="tool-tag">Science</span></div>
+        <div class="tool-card" onclick="showTool('age-calculator')"><div class="tool-icon">🎂</div><div class="tool-name">Age Calculator</div><div class="tool-desc">Find your exact age in years, months, days. Shows total days alive too.</div><span class="tool-tag">Calculator</span></div>
+        <div class="tool-card" onclick="showTool('word-counter')"><div class="tool-icon">📝</div><div class="tool-name">Word Counter</div><div class="tool-desc">Count words, characters, sentences and paragraphs. Perfect for writers.</div><span class="tool-tag">Text</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MM TO INCHES -->
+<div id="page-mm-to-inches" class="page">
+  <div class="tool-hero"><div class="tool-hero-inner">
+    <div class="breadcrumb" onclick="goHome()">← Home / <span>MM to Inches</span></div>
+    <h1>📐 MM to Inches Converter</h1>
+    <p>Convert millimeters to inches instantly — used by engineers, builders and DIY enthusiasts worldwide</p>
+  </div></div>
+  <div class="tool-body">
+    <div class="converter-card">
+      <span class="inp-label">Enter Millimeters (mm)</span>
+      <input class="inp" type="number" id="mm-val" placeholder="e.g. 25">
+      <button class="btn" onclick="convertMM()">Convert to Inches ➜</button>
+      <div class="result-box" id="mm-result"><div class="res-label">Result</div><div class="res-value" id="mm-output"></div></div>
+    </div>
+    <div class="seo-card">
+      <h2>How to Convert MM to Inches</h2>
+      <p>To convert millimeters to inches, divide the millimeter value by 25.4. This is because one inch is exactly equal to 25.4 millimeters — a standard defined by the international yard and pound agreement of 1959.</p>
+      <p>Formula: <strong>Inches = Millimeters ÷ 25.4</strong></p>
+      <p>For example, 50 mm ÷ 25.4 = 1.9685 inches. This converter is used in engineering drawings, woodworking, screen sizes, and international shipping where metric and imperial units must be mixed.</p>
+    </div>
+    <div class="table-card"><div class="card-title">📊 MM to Inches Reference Table</div>
+      <table><tr><th>Millimeters</th><th>Inches (decimal)</th><th>Inches (fraction)</th></tr>
+        <tr><td>1 mm</td><td>0.0394 in</td><td>3/64 in</td></tr>
+        <tr><td>5 mm</td><td>0.1969 in</td><td>13/64 in</td></tr>
+        <tr><td>10 mm</td><td>0.3937 in</td><td>25/64 in</td></tr>
+        <tr><td>25.4 mm</td><td>1.0000 in</td><td>1 in</td></tr>
+        <tr><td>50 mm</td><td>1.9685 in</td><td>1 31/32 in</td></tr>
+        <tr><td>100 mm</td><td>3.9370 in</td><td>3 15/16 in</td></tr>
+      </table>
+    </div>
+    <div class="related-card"><div class="card-title">🔗 Related Tools</div>
+      <span class="tag-link" onclick="showTool('cm-to-inches')">📏 CM to Inches</span>
+      <span class="tag-link" onclick="showTool('kg-to-lbs')">⚖️ KG to LBS</span>
+      <span class="tag-link" onclick="showTool('celsius-to-fahrenheit')">🌡️ Celsius to F</span>
+      <span class="tag-link" onclick="showTool('mph-to-kmh')">🚗 MPH to KM/H</span>
+    </div>
+    <div class="faq-card"><div class="card-title">❓ Frequently Asked Questions</div>
+      <div class="faq-item"><div class="faq-q">How many inches is 1 mm?</div><div class="faq-a">1 millimeter equals 0.03937 inches. To put it another way, 1 mm is about 1/25th of an inch.</div></div>
+      <div class="faq-item"><div class="faq-q">How many mm is 1 inch?</div><div class="faq-a">1 inch equals exactly 25.4 millimeters. This is the internationally agreed standard value used worldwide.</div></div>
+      <div class="faq-item"><div class="faq-q">How do I convert mm to inches without a calculator?</div><div class="faq-a">Divide the mm value by 25.4. A quick estimate: divide mm by 25 to get a close approximation in inches.</div></div>
+      <div class="faq-item"><div class="faq-q">What is 10 mm in inches?</div><div class="faq-a">10 mm equals 0.3937 inches, which is just under half an inch (0.4 inches).</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- CM TO INCHES -->
+<div id="page-cm-to-inches" class="page">
+  <div class="tool-hero"><div class="tool-hero-inner">
+    <div class="breadcrumb" onclick="goHome()">← Home / <span>CM to Inches</span></div>
+    <h1>📏 CM to Inches Converter</h1>
+    <p>Convert centimeters to inches with feet output — perfect for height, fabric and measurement conversions</p>
+  </div></div>
+  <div class="tool-body">
+    <div class="converter-card">
+      <span class="inp-label">Enter Centimeters (cm)</span>
+      <input class="inp" type="number" id="cm-val" placeholder="e.g. 170">
+      <button class="btn" onclick="convertCM()">Convert to Inches ➜</button>
+      <div class="result-box" id="cm-result"><div class="res-label">Result</div><div class="res-value" id="cm-output"></div></div>
+    </div>
+    <div class="seo-card">
+      <h2>How to Convert Centimeters to Inches</h2>
+      <p>To convert centimeters to inches, divide the centimeter value by 2.54. One inch is defined as exactly 2.54 centimeters.</p>
+      <p>Formula: <strong>Inches = Centimeters ÷ 2.54</strong></p>
+      <p>This conversion is widely used for human height measurements. For example, a person who is 170 cm tall is 66.93 inches or 5 feet 7 inches tall. Centimeters are used in most countries while the United States still commonly uses inches and feet for height.</p>
+    </div>
+    <div class="table-card"><div class="card-title">📊 CM to Inches Reference Table</div>
+      <table><tr><th>Centimeters</th><th>Inches</th><th>Feet & Inches</th></tr>
+        <tr><td>150 cm</td><td>59.06 in</td><td>4 ft 11 in</td></tr>
+        <tr><td>155 cm</td><td>61.02 in</td><td>5 ft 1 in</td></tr>
+        <tr><td>160 cm</td><td>62.99 in</td><td>5 ft 3 in</td></tr>
+        <tr><td>165 cm</td><td>64.96 in</td><td>5 ft 5 in</td></tr>
+        <tr><td>170 cm</td><td>66.93 in</td><td>5 ft 7 in</td></tr>
+        <tr><td>175 cm</td><td>68.90 in</td><td>5 ft 9 in</td></tr>
+        <tr><td>180 cm</td><td>70.87 in</td><td>5 ft 11 in</td></tr>
+      </table>
+    </div>
+    <div class="related-card"><div class="card-title">🔗 Related Tools</div>
+      <span class="tag-link" onclick="showTool('mm-to-inches')">📐 MM to Inches</span>
+      <span class="tag-link" onclick="showTool('kg-to-lbs')">⚖️ KG to LBS</span>
+      <span class="tag-link" onclick="showTool('bmi-calculator')">❤️ BMI Calculator</span>
+    </div>
+    <div class="faq-card"><div class="card-title">❓ Frequently Asked Questions</div>
+      <div class="faq-item"><div class="faq-q">How many inches is 1 cm?</div><div class="faq-a">1 centimeter equals 0.3937 inches. This is based on the exact definition that 1 inch = 2.54 cm.</div></div>
+      <div class="faq-item"><div class="faq-q">How tall is 5 feet 7 inches in cm?</div><div class="faq-a">5 feet 7 inches equals 170.18 centimeters. This is calculated as (5×30.48) + (7×2.54).</div></div>
+      <div class="faq-item"><div class="faq-q">What is 170 cm in feet and inches?</div><div class="faq-a">170 cm equals 5 feet 6.93 inches — commonly rounded to 5 feet 7 inches.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- KG TO LBS -->
+<div id="page-kg-to-lbs" class="page">
+  <div class="tool-hero"><div class="tool-hero-inner">
+    <div class="breadcrumb" onclick="goHome()">← Home / <span>KG to LBS</span></div>
+    <h1>⚖️ KG to LBS Converter</h1>
+    <p>Convert kilograms to pounds instantly — used for fitness, diet tracking, shipping and everyday weight conversion</p>
+  </div></div>
+  <div class="tool-body">
+    <div class="converter-card">
+      <span class="inp-label">Enter Kilograms (kg)</span>
+      <input class="inp" type="number" id="kg-val" placeholder="e.g. 70">
+      <button class="btn" onclick="convertKG()">Convert to LBS ➜</button>
+      <div class="result-box" id="kg-result"><div class="res-label">Result</div><div class="res-value" id="kg-output"></div></div>
+    </div>
+    <div class="seo-card">
+      <h2>How to Convert Kilograms to Pounds</h2>
+      <p>To convert kilograms to pounds, multiply the kilogram value by 2.2046. One kilogram equals 2.20462 pounds exactly.</p>
+      <p>Formula: <strong>Pounds = Kilograms × 2.2046</strong></p>
+      <p>This conversion is essential for international fitness tracking, medical records, food packaging and shipping. Most countries use kilograms but the USA and UK commonly use pounds for body weight.</p>
+    </div>
+    <div class="table-card"><div class="card-title">📊 KG to LBS Reference Table</div>
+      <table><tr><th>Kilograms</th><th>Pounds</th></tr>
+        <tr><td>50 kg</td><td>110.23 lbs</td></tr>
+        <tr><td>60 kg</td><td>132.28 lbs</td></tr>
+        <tr><td>70 kg</td><td>154.32 lbs</td></tr>
+        <tr><td>80 kg</td><td>176.37 lbs</td></tr>
+        <tr><td>90 kg</td><td>198.42 lbs</td></tr>
+        <tr><td>100 kg</td><td>220.46 lbs</td></tr>
+      </table>
+    </div>
+    <div class="related-card"><div class="card-title">🔗 Related Tools</div>
+      <span class="tag-link" onclick="showTool('bmi-calculator')">❤️ BMI Calculator</span>
+      <span class="tag-link" onclick="showTool('calorie-calculator')">🔥 Calorie Calculator</span>
+      <span class="tag-link" onclick="showTool('cm-to-inches')">📏 CM to Inches</span>
+    </div>
+    <div class="faq-card"><div class="card-title">❓ Frequently Asked Questions</div>
+      <div class="faq-item"><div class="faq-q">How many pounds is 1 kg?</div><div class="faq-a">1 kilogram equals 2.2046 pounds. For a quick estimate, multiply kg by 2.2.</div></div>
+      <div class="faq-item"><div class="faq-q">How much is 70 kg in pounds?</div><div class="faq-a">70 kg equals 154.32 pounds. This is a very common weight conversion for fitness tracking.</div></div>
+      <div class="faq-item"><div class="faq-q">Is 1 kg equal to 2 pounds?</div><div class="faq-a">Not exactly. 1 kg equals 2.2046 pounds. Saying 1 kg = 2 lbs is a rough estimate that is about 10% off.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- BMI CALCULATOR -->
+<div id="page-bmi-calculator" class="page">
+  <div class="tool-hero"><div class="tool-hero-inner">
+    <div class="breadcrumb" onclick="goHome()">← Home / <span>BMI Calculator</span></div>
+    <h1>❤️ BMI Calculator</h1>
+    <p>Calculate your Body Mass Index instantly — find out if your weight is healthy for your height</p>
+  </div></div>
+  <div class="tool-body">
+    <div class="converter-card">
+      <span class="inp-label">Your Weight & Height</span>
+      <div class="inp-row">
+        <input class="inp" type="number" id="bmi-weight" placeholder="Weight (kg)" style="margin:0;">
+        <input class="inp" type="number" id="bmi-height" placeholder="Height (cm)" style="margin:0;">
+      </div>
+      <button class="btn" onclick="calcBMI()" style="margin-top:12px;">Calculate BMI ➜</button>
+      <div class="result-box" id="bmi-result"><div class="res-label">Your BMI</div><div class="res-value" id="bmi-output"></div></div>
+    </div>
+    <div class="seo-card">
+      <h2>What is BMI and How is it Calculated?</h2>
+      <p>BMI stands for Body Mass Index. It is a number calculated from your weight and height that gives a general indication of whether your weight falls within a healthy range for your height.</p>
+      <p>Formula: <strong>BMI = Weight (kg) ÷ Height (m)²</strong></p>
+      <p>For example, if you weigh 70 kg and are 1.75 m tall: BMI = 70 ÷ (1.75 × 1.75) = 70 ÷ 3.0625 = 22.9. This falls in the normal weight range.</p>
+    </div>
+    <div class="table-card"><div class="card-title">📊 BMI Categories</div>
+      <table><tr><th>BMI Range</th><th>Category</th><th>Health Risk</th></tr>
+        <tr><td>Below 18.5</td><td>Underweight</td><td>Increased risk</td></tr>
+        <tr><td>18.5 – 24.9</td><td>Normal weight</td><td>Low risk</td></tr>
+        <tr><td>25.0 – 29.9</td><td>Overweight</td><td>Moderate risk</td></tr>
+        <tr><td>30.0 – 34.9</td><td>Obese Class I</td><td>High risk</td></tr>
+        <tr><td>35.0 – 39.9</td><td>Obese Class II</td><td>Very high risk</td></tr>
+        <tr><td>40+</td><td>Obese Class III</td><td>Extremely high</td></tr>
+      </table>
+    </div>
+    <div class="related-card"><div class="card-title">🔗 Related Tools</div>
+      <span class="tag-link" onclick="showTool('calorie-calculator')">🔥 Calorie Calculator</span>
+      <span class="tag-link" onclick="showTool('water-intake')">💧 Water Intake</span>
+      <span class="tag-link" onclick="showTool('kg-to-lbs')">⚖️ KG to LBS</span>
+      <span class="tag-link" onclick="showTool('cm-to-inches')">📏 CM to Inches</span>
+    </div>
+    <div class="faq-card"><div class="card-title">❓ Frequently Asked Questions</div>
+      <div class="faq-item"><div class="faq-q">What is a healthy BMI for adults?</div><div class="faq-a">A healthy BMI for adults is between 18.5 and 24.9. Below 18.5 is underweight and above 25 is overweight.</div></div>
+      <div class="faq-item"><div class="faq-q">Is BMI accurate for everyone?</div><div class="faq-a">BMI is a useful screening tool but not perfect. It does not account for muscle mass, bone density or age. Athletes may have a high BMI but still be healthy.</div></div>
+      <div class="faq-item"><div class="faq-q">What BMI is considered obese?</div><div class="faq-a">A BMI of 30 or above is classified as obese. A BMI of 40 or more is classified as severely obese.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- CALORIE CALCULATOR -->
+<div id="page-calorie-calculator" class="page">
+  <div class="tool-hero"><div class="tool-hero-inner">
+    <div class="breadcrumb" onclick="goHome()">← Home / <span>Calorie Calculator</span></div>
+    <h1>🔥 Daily Calorie Calculator</h1>
+    <p>Calculate how many calories you need per day to maintain, lose or gain weight</p>
+  </div></div>
+  <div class="tool-body">
+    <div class="converter-card">
+      <span class="inp-label">Your Details</span>
+      <div class="inp-row">
+        <input class="inp" type="number" id="cal-age" placeholder="Age (years)" style="margin:0;">
+        <input class="inp" type="number" id="cal-weight" placeholder="Weight (kg)" style="margin:0;">
+      </div>
+      <div class="inp-row" style="margin-top:10px;">
+        <input class="inp" type="number" id="cal-height" placeholder="Height (cm)" style="margin:0;">
+        <select class="inp" id="cal-gender" style="margin:0;font-size:14px;">
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+        </select>
+      </div>
+      <select class="inp" id="cal-activity" style="margin-top:10px;">
+        <option value="1.2">Sedentary (little or no exercise)</option>
+        <option value="1.375">Lightly active (1-3 days/week)</option>
+        <option value="1.55" selected>Moderately active (3-5 days/week)</option>
+        <option value="1.725">Very active (6-7 days/week)</option>
+        <option value="1.9">Super active (physical job + exercise)</option>
+      </select>
+      <button class="btn" onclick="calcCalories()" style="margin-top:12px;">Calculate Calories ➜</button>
+      <div class="result-box" id="cal-result"><div class="res-label">Daily Calories Needed</div><div class="res-value" id="cal-output"></div></div>
+    </div>
+    <div class="seo-card">
+      <h2>How Many Calories Do You Need Per Day?</h2>
+      <p>Your daily calorie needs depend on your age, weight, height, gender and activity level. This calculator uses the Mifflin-St Jeor equation — the most accurate formula recommended by dietitians for estimating daily calorie needs.</p>
+      <p>To lose weight eat 500 fewer calories than your maintenance calories. To gain weight eat 500 more. For most adults maintenance calories range from 1,600 to 3,000 calories per day.</p>
+    </div>
+    <div class="table-card"><div class="card-title">📊 Average Daily Calorie Needs</div>
+      <table><tr><th>Person</th><th>Sedentary</th><th>Active</th></tr>
+        <tr><td>Woman age 20-30</td><td>2,000 cal</td><td>2,400 cal</td></tr>
+        <tr><td>Woman age 40-50</td><td>1,800 cal</td><td>2,200 cal</td></tr>
+        <tr><td>Man age 20-30</td><td>2,400 cal</td><td>3,000 cal</td></tr>
+        <tr><td>Man age 40-50</td><td>2,200 cal</td><td>2,800 cal</td></tr>
+      </table>
+    </div>
+    <div class="related-card"><div class="card-title">🔗 Related Tools</div>
+      <span class="tag-link" onclick="showTool('bmi-calculator')">❤️ BMI Calculator</span>
+      <span class="tag-link" onclick="showTool('water-intake')">💧 Water Intake</span>
+    </div>
+    <div class="faq-card"><div class="card-title">❓ Frequently Asked Questions</div>
+      <div class="faq-item"><div class="faq-q">How many calories should I eat to lose weight?</div><div class="faq-a">Eat 500 fewer calories than your maintenance calories to lose about 0.5 kg (1 lb) per week. Never go below 1,200 calories for women or 1,500 for men without medical supervision.</div></div>
+      <div class="faq-item"><div class="faq-q">What is the Mifflin-St Jeor equation?</div><div class="faq-a">It is the most accurate formula for calculating Basal Metabolic Rate (BMR). For men: BMR = 10×weight + 6.25×height – 5×age + 5. For women: BMR = 10×weight + 6.25×height – 5×age – 161.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- WATER INTAKE -->
+<div id="page-water-intake" class="page">
+  <div class="tool-hero"><div class="tool-hero-inner">
+    <div class="breadcrumb" onclick="goHome()">← Home / <span>Water Intake Calculator</span></div>
+    <h1>💧 Water Intake Calculator</h1>
+    <p>Find out how much water you should drink daily based on your weight and activity level</p>
+  </div></div>
+  <div class="tool-body">
+    <div class="converter-card">
+      <span class="inp-label">Your Weight & Activity</span>
+      <input class="inp" type="number" id="water-weight" placeholder="Your weight (kg)">
+      <select class="inp" id="water-activity">
+        <option value="30">Sedentary (office work, little movement)</option>
+        <option value="35" selected>Moderately active (some exercise)</option>
+        <option value="40">Very active (daily intense exercise)</option>
+      </select>
+      <button class="btn" onclick="calcWater()">Calculate Water Intake ➜</button>
+      <div class="result-box" id="water-result"><div class="res-label">Daily Water Intake</div><div class="res-value" id="water-output"></div></div>
+    </div>
+    <div class="seo-card">
+      <h2>How Much Water Should You Drink Per Day?</h2>
+      <p>The amount of water you need daily depends on your body weight and how active you are. A general rule used by nutritionists is to drink 30 to 40 ml of water per kilogram of body weight per day.</p>
+      <p>A 70 kg person who is moderately active should drink about 2.45 litres (about 8 glasses) of water per day. Hot weather and intense exercise increase this requirement.</p>
+    </div>
+    <div class="related-card"><div class="card-title">🔗 Related Tools</div>
+      <span class="tag-link" onclick="showTool('bmi-calculator')">❤️ BMI Calculator</span>
+      <span class="tag-link" onclick="showTool('calorie-calculator')">🔥 Calorie Calculator</span>
+    </div>
+    <div class="faq-card"><div class="card-title">❓ Frequently Asked Questions</div>
+      <div class="faq-item"><div class="faq-q">Is 8 glasses of water a day enough?</div><div class="faq-a">The 8 glasses rule is a rough guide. Your actual needs depend on your weight, activity level and climate. Use this calculator for a personalized recommendation.</div></div>
+      <div class="faq-item"><div class="faq-q">What happens if you drink too little water?</div><div class="faq-a">Dehydration causes fatigue, headaches, difficulty concentrating and dark yellow urine. Severe dehydration can cause serious health problems.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- PERCENTAGE CALCULATOR -->
+<div id="page-percentage-calculator" class="page">
+  <div class="tool-hero"><div class="tool-hero-inner">
+    <div class="breadcrumb" onclick="goHome()">← Home / <span>Percentage Calculator</span></div>
+    <h1>💯 Percentage Calculator</h1>
+    <p>Calculate percentages, percentage increase and percentage decrease instantly — free and easy</p>
+  </div></div>
+  <div class="tool-body">
+    <div class="converter-card">
+      <span class="inp-label">What is X% of Y?</span>
+      <div class="inp-row">
+        <input class="inp" type="number" id="pct-x" placeholder="Percentage (e.g. 20)" style="margin:0;">
+        <input class="inp" type="number" id="pct-y" placeholder="Of number (e.g. 150)" style="margin:0;">
+      </div>
+      <button class="btn" onclick="calcPct()" style="margin-top:12px;">Calculate ➜</button>
+      <div class="result-box" id="pct-result"><div class="res-label">Result</div><div class="res-value" id="pct-output"></div></div>
+    </div>
+    <div class="converter-card">
+      <span class="inp-label">What % is X of Y?</span>
+      <div class="inp-row">
+        <input class="inp" type="number" id="pct-a" placeholder="Number (e.g. 30)" style="margin:0;">
+        <input class="inp" type="number" id="pct-b" placeholder="Of total (e.g. 150)" style="margin:0;">
+      </div>
+      <button class="btn" onclick="calcPctOf()" style="margin-top:12px;">Calculate % ➜</button>
+      <div class="result-box" id="pct-of-result"><div class="res-label">Result</div><div class="res-value" id="pct-of-output"></div></div>
+    </div>
+    <div class="seo-card">
+      <h2>How to Calculate Percentages</h2>
+      <p>A percentage is a number expressed as a fraction of 100. To find X% of Y, multiply Y by X and divide by 100. For example, 20% of 150 = (150 × 20) ÷ 100 = 30.</p>
+      <p>Percentages are used in everyday life for calculating discounts, tax, tips, exam scores, interest rates and much more.</p>
+    </div>
+    <div class="table-card"><div class="card-title">📊 Common Percentage Examples</div>
+      <table><tr><th>Calculation</th><th>Answer</th></tr>
+        <tr><td>10% of 100</td><td>10</td></tr>
+        <tr><td>20% of 200</td><td>40</td></tr>
+        <tr><td>15% of 80</td><td>12</td></tr>
+        <tr><td>25% of 60</td><td>15</td></tr>
+        <tr><td>50% of 340</td><td>170</td></tr>
+        <tr><td>5% of 1000</td><td>50</td></tr>
+      </table>
+    </div>
+    <div class="related-card"><div class="card-title">🔗 Related Tools</div>
+      <span class="tag-link" onclick="showTool('discount-calculator')">🏷️ Discount Calculator</span>
+      <span class="tag-link" onclick="showTool('tip-calculator')">🧾 Tip Calculator</span>
+    </div>
+    <div class="faq-card"><div class="card-title">❓ Frequently Asked Questions</div>
+      <div class="faq-item"><div class="faq-q">How do I calculate a percentage of a number?</div><div class="faq-a">Multiply the number by the percentage and divide by 100. Example: 15% of 200 = (200 × 15) ÷ 100 = 30.</div></div>
+      <div class="faq-item"><div class="faq-q">How do I find what percentage one number is of another?</div><div class="faq-a">Divide the first number by the second and multiply by 100. Example: 30 is what % of 150? = (30 ÷ 150) × 100 = 20%.</div></div>
+      <div class="faq-item"><div class="faq-q">How do I calculate percentage increase?</div><div class="faq-a">Subtract the original from the new value, divide by the original, then multiply by 100. Example: from 100 to 120 is a 20% increase.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- DISCOUNT CALCULATOR -->
+<div id="page-discount-calculator" class="page">
+  <div class="tool-hero"><div class="tool-hero-inner">
+    <div class="breadcrumb" onclick="goHome()">← Home / <span>Discount Calculator</span></div>
+    <h1>🏷️ Discount Calculator</h1>
+    <p>Calculate the final price after a discount instantly — perfect for shopping, sales and deals</p>
+  </div></div>
+  <div class="tool-body">
+    <div class="converter-card">
+      <span class="inp-label">Original Price & Discount</span>
+      <div class="inp-row">
+        <input class="inp" type="number" id="disc-price" placeholder="Original price ($)" style="margin:0;">
+        <input class="inp" type="number" id="disc-pct" placeholder="Discount (%)" style="margin:0;">
+      </div>
+      <button class="btn" onclick="calcDiscount()" style="margin-top:12px;">Calculate Final Price ➜</button>
+      <div class="result-box" id="disc-result"><div class="res-label">Result</div><div class="res-value" id="disc-output"></div></div>
+    </div>
+    <div class="seo-card">
+      <h2>How to Calculate a Discount Price</h2>
+      <p>To find the final price after a discount, multiply the original price by the discount percentage and subtract from the original price.</p>
+      <p>Formula: <strong>Final Price = Original Price × (1 – Discount% ÷ 100)</strong></p>
+      <p>Example: A $200 item with 25% off: 200 × (1 – 0.25) = 200 × 0.75 = $150 final price. You save $50.</p>
+    </div>
+    <div class="related-card"><div class="card-title">🔗 Related Tools</div>
+      <span class="tag-link" onclick="showTool('percentage-calculator')">💯 Percentage Calculator</span>
+      <span class="tag-link" onclick="showTool('tip-calculator')">🧾 Tip Calculator</span>
+    </div>
+    <div class="faq-card"><div class="card-title">❓ Frequently Asked Questions</div>
+      <div class="faq-item"><div class="faq-q">How do I calculate 20% off a price?</div><div class="faq-a">Multiply the price by 0.80. For example, 20% off $50 = 50 × 0.80 = $40.</div></div>
+      <div class="faq-item"><div class="faq-q">How do I calculate how much I save?</div><div class="faq-a">Multiply the original price by the discount percentage divided by 100. Example: 25% off $200 = 200 × 0.25 = $50 saved.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- TIP CALCULATOR -->
+<div id="page-tip-calculator" class="page">
+  <div class="tool-hero"><div class="tool-hero-inner">
+    <div class="breadcrumb" onclick="goHome()">← Home / <span>Tip Calculator</span></div>
+    <h1>🧾 Tip Calculator</h1>
+    <p>Calculate the tip amount and split the bill among friends — easy restaurant bill calculator</p>
+  </div></div>
+  <div class="tool-body">
+    <div class="converter-card">
+      <span class="inp-label">Bill Details</span>
+      <div class="inp-row">
+        <input class="inp" type="number" id="tip-bill" placeholder="Bill total ($)" style="margin:0;">
+        <input class="inp" type="number" id="tip-pct" placeholder="Tip % (e.g. 15)" style="margin:0;" value="15">
+      </div>
+      <input class="inp" type="number" id="tip-people" placeholder="Number of people splitting (e.g. 4)" style="margin-top:10px;" value="1">
+      <button class="btn" onclick="calcTip()" style="margin-top:12px;">Calculate Tip ➜</button>
+      <div class="result-box" id="tip-result"><div class="res-label">Result</div><div class="res-value" id="tip-output"></div></div>
+    </div>
+    <div class="table-card"><div class="card-title">📊 Standard Tip Guide</div>
+      <table><tr><th>Service Quality</th><th>Tip %</th></tr>
+        <tr><td>Poor service</td><td>10%</td></tr>
+        <tr><td>Average service</td><td>15%</td></tr>
+        <tr><td>Good service</td><td>18%</td></tr>
+        <tr><td>Excellent service</td><td>20%</td></tr>
+        <tr><td>Exceptional service</td><td>25%+</td></tr>
+      </table>
+    </div>
+    <div class="related-card"><div class="card-title">🔗 Related Tools</div>
+      <span class="tag-link" onclick="showTool('percentage-calculator')">💯 Percentage Calculator</span>
+      <span class="tag-link" onclick="showTool('discount-calculator')">🏷️ Discount Calculator</span>
+    </div>
+    <div class="faq-card"><div class="card-title">❓ Frequently Asked Questions</div>
+      <div class="faq-item"><div class="faq-q">How much should I tip at a restaurant?</div><div class="faq-a">The standard tip in the US is 15-20% for good service. In the UK tipping is less common — around 10% is typical.</div></div>
+      <div class="faq-item"><div class="faq-q">How do I split a bill equally?</div><div class="faq-a">Add the tip to the total bill, then divide by the number of people. This calculator does all of that automatically.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- CUPS TO ML -->
+<div id="page-cups-to-ml" class="page">
+  <div class="tool-hero"><div class="tool-hero-inner">
+    <div class="breadcrumb" onclick="goHome()">← Home / <span>Cups to ML</span></div>
+    <h1>☕ Cups to ML Converter</h1>
+    <p>Convert cups to milliliters for cooking and baking — works with US cups, metric cups and imperial measurements</p>
+  </div></div>
+  <div class="tool-body">
+    <div class="converter-card">
+      <span class="inp-label">Enter Cups</span>
+      <input class="inp" type="number" id="cups-val" placeholder="e.g. 2.5">
+      <button class="btn" onclick="convertCups()">Convert to ML ➜</button>
+      <div class="result-box" id="cups-result"><div class="res-label">Result</div><div class="res-value" id="cups-output"></div></div>
+    </div>
+    <div class="seo-card">
+      <h2>How to Convert Cups to Milliliters</h2>
+      <p>One US cup equals exactly 236.588 milliliters (ml). To convert cups to ml, multiply the number of cups by 236.588.</p>
+      <p>Formula: <strong>ML = Cups × 236.588</strong></p>
+      <p>This conversion is essential for converting American recipes to metric measurements used in most countries. Baking requires precise measurements so accurate conversion is important for great results.</p>
+    </div>
+    <div class="table-card"><div class="card-title">📊 Cups to ML Reference Table</div>
+      <table><tr><th>Cups</th><th>ML</th><th>Common Use</th></tr>
+        <tr><td>¼ cup</td><td>59 ml</td><td>Small amount</td></tr>
+        <tr><td>⅓ cup</td><td>79 ml</td><td>Small amount</td></tr>
+        <tr><td>½ cup</td><td>118 ml</td><td>Half cup</td></tr>
+        <tr><td>1 cup</td><td>237 ml</td><td>Standard cup</td></tr>
+        <tr><td>2 cups</td><td>473 ml</td><td>Pint</td></tr>
+        <tr><td>4 cups</td><td>946 ml</td><td>Quart</td></tr>
+      </table>
+    </div>
+    <div class="related-card"><div class="card-title">🔗 Related Tools</div>
+      <span class="tag-link" onclick="showTool('tbsp-to-cups')">🥄 Tablespoons to Cups</span>
+      <span class="tag-link" onclick="showTool('oven-temperature')">🌡️ Oven Temperature</span>
+    </div>
+    <div class="faq-card"><div class="card-title">❓ Frequently Asked Questions</div>
+      <div class="faq-item"><div class="faq-q">How many ml is 1 cup?</div><div class="faq-a">1 US cup equals 236.588 ml, usually rounded to 237 ml in cooking. In Australia and Canada 1 cup equals 250 ml.</div></div>
+      <div class="faq-item"><div class="faq-q">How many cups is 500 ml?</div><div class="faq-a">500 ml equals approximately 2.11 US cups. In metric countries where 1 cup = 250 ml, 500 ml equals exactly 2 cups.</div></div>
+      <div class="faq-item"><div class="faq-q">Why do US and metric cups differ?</div><div class="faq-a">The US uses a traditional cup size of 236.588 ml while most metric countries use 250 ml. Always check which cup size your recipe uses.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- OVEN TEMPERATURE -->
+<div id="page-oven-temperature" class="page">
+  <div class="tool-hero"><div class="tool-hero-inner">
+    <div class="breadcrumb" onclick="goHome()">← Home / <span>Oven Temperature</span></div>
+    <h1>🌡️ Oven Temperature Converter</h1>
+    <p>Convert oven temperatures between Fahrenheit, Celsius and Gas Mark — perfect for baking recipes</p>
+  </div></div>
+  <div class="tool-body">
+    <div class="converter-card">
+      <span class="inp-label">Enter Temperature in Celsius (°C)</span>
+      <input class="inp" type="number" id="oven-c" placeholder="e.g. 180">
+      <button class="btn" onclick="convertOven()">Convert Temperature ➜</button>
+      <div class="result-box" id="oven-result"><div class="res-label">Result</div><div class="res-value" id="oven-output"></div></div>
+    </div>
+    <div class="table-card"><div class="card-title">📊 Oven Temperature Guide</div>
+      <table><tr><th>Description</th><th>Celsius</th><th>Fahrenheit</th><th>Gas Mark</th></tr>
+        <tr><td>Very cool</td><td>120°C</td><td>250°F</td><td>½</td></tr>
+        <tr><td>Cool</td><td>150°C</td><td>300°F</td><td>2</td></tr>
+        <tr><td>Moderate</td><td>180°C</td><td>350°F</td><td>4</td></tr>
+        <tr><td>Hot</td><td>200°C</td><td>400°F</td><td>6</td></tr>
+        <tr><td>Very hot</td><td>220°C</td><td>425°F</td><td>7</td></tr>
+        <tr><td>Extremely hot</td><td>240°C</td><td>475°F</td><td>9</td></tr>
+      </table>
+    </div>
+    <div class="related-card"><div class="card-title">🔗 Related Tools</div>
+      <span class="tag-link" onclick="showTool('celsius-to-fahrenheit')">🌡️ Celsius to F</span>
+      <span class="tag-link" onclick="showTool('cups-to-ml')">☕ Cups to ML</span>
+      <span class="tag-link" onclick="showTool('tbsp-to-cups')">🥄 Tablespoons to Cups</span>
+    </div>
+    <div class="faq-card"><div class="card-title">❓ Frequently Asked Questions</div>
+      <div class="faq-item"><div class="faq-q">What is 180 degrees Celsius in Fahrenheit?</div><div class="faq-a">180°C equals 356°F. This is one of the most common baking temperatures used for cakes and biscuits.</div></div>
+      <div class="faq-item"><div class="faq-q">What temperature is gas mark 4?</div><div class="faq-a">Gas mark 4 equals 180°C or 350°F — a moderate oven temperature used for most everyday baking.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- TABLESPOONS TO CUPS -->
+<div id="page-tbsp-to-cups" class="page">
+  <div class="tool-hero"><div class="tool-hero-inner">
+    <div class="breadcrumb" onclick="goHome()">← Home / <span>Tablespoons to Cups</span></div>
+    <h1>🥄 Tablespoons to Cups Converter</h1>
+    <p>Convert tablespoons to cups and teaspoons — essential for accurate recipe measurements</p>
+  </div></div>
+  <div class="tool-body">
+    <div class="converter-card">
+      <span class="inp-label">Enter Tablespoons</span>
+      <input class="inp" type="number" id="tbsp-val" placeholder="e.g. 8">
+      <button class="btn" onclick="convertTbsp()">Convert ➜</button>
+      <div class="result-box" id="tbsp-result"><div class="res-label">Result</div><div class="res-value" id="tbsp-output"></div></div>
+    </div>
+    <div class="table-card"><div class="card-title">📊 Tablespoon Conversion Table</div>
+      <table><tr><th>Tablespoons</th><th>Cups</th><th>Teaspoons</th><th>ML</th></tr>
+        <tr><td>1 tbsp</td><td>1/16 cup</td><td>3 tsp</td><td>15 ml</td></tr>
+        <tr><td>2 tbsp</td><td>⅛ cup</td><td>6 tsp</td><td>30 ml</td></tr>
+        <tr><td>4 tbsp</td><td>¼ cup</td><td>12 tsp</td><td>59 ml</td></tr>
+        <tr><td>8 tbsp</td><td>½ cup</td><td>24 tsp</td><td>118 ml</td></tr>
+        <tr><td>16 tbsp</td><td>1 cup</td><td>48 tsp</td><td>237 ml</td></tr>
+      </table>
+    </div>
+    <div class="related-card"><div class="card-title">🔗 Related Tools</div>
+      <span class="tag-link" onclick="showTool('cups-to-ml')">☕ Cups to ML</span>
+      <span class="tag-link" onclick="showTool('oven-temperature')">🌡️ Oven Temperature</span>
+    </div>
+    <div class="faq-card"><div class="card-title">❓ Frequently Asked Questions</div>
+      <div class="faq-item"><div class="faq-q">How many tablespoons are in a cup?</div><div class="faq-a">There are 16 tablespoons in 1 US cup. A half cup equals 8 tablespoons and a quarter cup equals 4 tablespoons.</div></div>
+      <div class="faq-item"><div class="faq-q">How many teaspoons are in a tablespoon?</div><div class="faq-a">There are exactly 3 teaspoons in 1 tablespoon. This is a standard cooking measurement used worldwide.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- CELSIUS TO FAHRENHEIT -->
+<div id="page-celsius-to-fahrenheit" class="page">
+  <div class="tool-hero"><div class="tool-hero-inner">
+    <div class="breadcrumb" onclick="goHome()">← Home / <span>Celsius to Fahrenheit</span></div>
+    <h1>🌡️ Celsius to Fahrenheit Converter</h1>
+    <p>Convert Celsius to Fahrenheit and back — perfect for weather, cooking, science and travel</p>
+  </div></div>
+  <div class="tool-body">
+    <div class="converter-card">
+      <span class="inp-label">Enter Temperature in Celsius (°C)</span>
+      <input class="inp" type="number" id="cel-val" placeholder="e.g. 25">
+      <button class="btn" onclick="convertCel()">Convert to Fahrenheit ➜</button>
+      <div class="result-box" id="cel-result"><div class="res-label">Result</div><div class="res-value" id="cel-output"></div></div>
+    </div>
+    <div class="seo-card">
+      <h2>How to Convert Celsius to Fahrenheit</h2>
+      <p>To convert Celsius to Fahrenheit, multiply by 9/5 and add 32.</p>
+      <p>Formula: <strong>°F = (°C × 9/5) + 32</strong></p>
+      <p>To convert Fahrenheit back to Celsius: subtract 32 then multiply by 5/9. For example, 25°C = (25 × 1.8) + 32 = 45 + 32 = 77°F. The USA uses Fahrenheit while most countries use Celsius.</p>
+    </div>
+    <div class="table-card"><div class="card-title">📊 Celsius to Fahrenheit Reference</div>
+      <table><tr><th>Celsius</th><th>Fahrenheit</th><th>Description</th></tr>
+        <tr><td>-40°C</td><td>-40°F</td><td>Extreme cold</td></tr>
+        <tr><td>0°C</td><td>32°F</td><td>Water freezes</td></tr>
+        <tr><td>20°C</td><td>68°F</td><td>Room temperature</td></tr>
+        <tr><td>37°C</td><td>98.6°F</td><td>Body temperature</td></tr>
+        <tr><td>100°C</td><td>212°F</td><td>Water boils</td></tr>
+      </table>
+    </div>
+    <div class="related-card"><div class="card-title">🔗 Related Tools</div>
+      <span class="tag-link" onclick="showTool('oven-temperature')">🌡️ Oven Temperature</span>
+      <span class="tag-link" onclick="showTool('mph-to-kmh')">🚗 MPH to KM/H</span>
+      <span class="tag-link" onclick="showTool('mm-to-inches')">📐 MM to Inches</span>
+    </div>
+    <div class="faq-card"><div class="card-title">❓ Frequently Asked Questions</div>
+      <div class="faq-item"><div class="faq-q">What is 100 degrees Celsius in Fahrenheit?</div><div class="faq-a">100°C equals 212°F. This is the boiling point of water at sea level.</div></div>
+      <div class="faq-item"><div class="faq-q">What is 37 degrees Celsius in Fahrenheit?</div><div class="faq-a">37°C equals 98.6°F. This is the normal human body temperature.</div></div>
+      <div class="faq-item"><div class="faq-q">Is 30 degrees Celsius hot?</div><div class="faq-a">Yes. 30°C equals 86°F which is considered warm to hot weather. Most people find temperatures above 30°C uncomfortable without air conditioning.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- MPH TO KMH -->
+<div id="page-mph-to-kmh" class="page">
+  <div class="tool-hero"><div class="tool-hero-inner">
+    <div class="breadcrumb" onclick="goHome()">← Home / <span>MPH to KM/H</span></div>
+    <h1>🚗 MPH to KM/H Converter</h1>
+    <p>Convert miles per hour to kilometers per hour instantly — perfect for driving, sports and science</p>
+  </div></div>
+  <div class="tool-body">
+    <div class="converter-card">
+      <span class="inp-label">Enter Speed in MPH</span>
+      <input class="inp" type="number" id="mph-val" placeholder="e.g. 60">
+      <button class="btn" onclick="convertMPH()">Convert to KM/H ➜</button>
+      <div class="result-box" id="mph-result"><div class="res-label">Result</div><div class="res-value" id="mph-output"></div></div>
+    </div>
+    <div class="seo-card">
+      <h2>How to Convert MPH to KM/H</h2>
+      <p>To convert miles per hour to kilometers per hour, multiply by 1.60934.</p>
+      <p>Formula: <strong>KM/H = MPH × 1.60934</strong></p>
+      <p>This conversion is important for international drivers, athletes and scientists. The USA and UK use miles per hour while most countries use kilometers per hour for speed limits and vehicle speedometers.</p>
+    </div>
+    <div class="table-card"><div class="card-title">📊 MPH to KM/H Reference</div>
+      <table><tr><th>MPH</th><th>KM/H</th><th>Common Use</th></tr>
+        <tr><td>30 mph</td><td>48.3 km/h</td><td>Residential speed limit</td></tr>
+        <tr><td>60 mph</td><td>96.6 km/h</td><td>Highway driving</td></tr>
+        <tr><td>70 mph</td><td>112.7 km/h</td><td>UK motorway limit</td></tr>
+        <tr><td>100 mph</td><td>160.9 km/h</td><td>Fast driving</td></tr>
+        <tr><td>120 mph</td><td>193.1 km/h</td><td>Racing speed</td></tr>
+      </table>
+    </div>
+    <div class="related-card"><div class="card-title">🔗 Related Tools</div>
+      <span class="tag-link" onclick="showTool('celsius-to-fahrenheit')">🌡️ Celsius to F</span>
+      <span class="tag-link" onclick="showTool('mm-to-inches')">📐 MM to Inches</span>
+      <span class="tag-link" onclick="showTool('kg-to-lbs')">⚖️ KG to LBS</span>
+    </div>
+    <div class="faq-card"><div class="card-title">❓ Frequently Asked Questions</div>
+      <div class="faq-item"><div class="faq-q">How many km/h is 60 mph?</div><div class="faq-a">60 mph equals 96.56 km/h — approximately 100 km/h. This is a common highway driving speed.</div></div>
+      <div class="faq-item"><div class="faq-q">How many km/h is 100 mph?</div><div class="faq-a">100 mph equals 160.93 km/h. This is well above most speed limits on public roads.</div></div>
+      <div class="faq-item"><div class="faq-q">How do I quickly convert mph to km/h?</div><div class="faq-a">Multiply mph by 1.6 for a quick rough estimate. For more accuracy multiply by 1.609.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- AGE CALCULATOR -->
+<div id="page-age-calculator" class="page">
+  <div class="tool-hero"><div class="tool-hero-inner">
+    <div class="breadcrumb" onclick="goHome()">← Home / <span>Age Calculator</span></div>
+    <h1>🎂 Age Calculator</h1>
+    <p>Find your exact age in years, months and days — also shows your total days alive</p>
+  </div></div>
+  <div class="tool-body">
+    <div class="converter-card">
+      <span class="inp-label">Your Date of Birth</span>
+      <input class="inp" type="date" id="dob-val">
+      <button class="btn" onclick="calcAge()">Calculate My Age ➜</button>
+      <div class="age-result" id="age-result">
+        <div class="age-row"><span class="age-lbl">📅 Years</span><span class="age-val" id="r-years">0</span></div>
+        <div class="age-row"><span class="age-lbl">📅 Months</span><span class="age-val" id="r-months">0</span></div>
+        <div class="age-row"><span class="age-lbl">📅 Days</span><span class="age-val" id="r-days">0</span></div>
+        <div class="age-row"><span class="age-lbl">🌍 Total days alive</span><span class="age-val" id="r-total">0</span></div>
+      </div>
+    </div>
+    <div class="seo-card">
+      <h2>How to Calculate Your Exact Age</h2>
+      <p>Your exact age is calculated by finding the difference between your date of birth and today in years, months and days. This is more precise than simply subtracting birth year from current year because it accounts for whether your birthday has happened yet this year.</p>
+      <p>This age calculator also shows your total number of days alive — a fun fact that surprises most people!</p>
+    </div>
+    <div class="related-card"><div class="card-title">🔗 Related Tools</div>
+      <span class="tag-link" onclick="showTool('bmi-calculator')">❤️ BMI Calculator</span>
+      <span class="tag-link" onclick="showTool('calorie-calculator')">🔥 Calorie Calculator</span>
+      <span class="tag-link" onclick="showTool('word-counter')">📝 Word Counter</span>
+    </div>
+    <div class="faq-card"><div class="card-title">❓ Frequently Asked Questions</div>
+      <div class="faq-item"><div class="faq-q">How is exact age calculated?</div><div class="faq-a">Exact age accounts for years, months and remaining days. It checks if your birthday has passed this year to give the correct number of completed years.</div></div>
+      <div class="faq-item"><div class="faq-q">How many days old am I?</div><div class="faq-a">Use this calculator to find your total days alive. An average 30-year-old has lived approximately 10,950 days.</div></div>
+      <div class="faq-item"><div class="faq-q">Can I calculate someone else's age?</div><div class="faq-a">Yes! Just enter any date of birth — past or present — and the calculator will tell you the exact age as of today.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- WORD COUNTER -->
+<div id="page-word-counter" class="page">
+  <div class="tool-hero"><div class="tool-hero-inner">
+    <div class="breadcrumb" onclick="goHome()">← Home / <span>Word Counter</span></div>
+    <h1>📝 Word Counter</h1>
+    <p>Count words, characters, sentences and paragraphs instantly — free tool for writers, students and bloggers</p>
+  </div></div>
+  <div class="tool-body">
+    <div class="converter-card">
+      <span class="inp-label">Type or Paste Your Text</span>
+      <textarea class="textarea" id="wc-text" placeholder="Start typing or paste your text here..." oninput="countWords()"></textarea>
+      <div class="stat-boxes">
+        <div class="stat-box"><div class="num" id="wc-words">0</div><div class="lbl">Words</div></div>
+        <div class="stat-box"><div class="num" id="wc-chars">0</div><div class="lbl">Characters</div></div>
+        <div class="stat-box"><div class="num" id="wc-sentences">0</div><div class="lbl">Sentences</div></div>
+        <div class="stat-box"><div class="num" id="wc-paragraphs">0</div><div class="lbl">Paragraphs</div></div>
+      </div>
+      <button class="clear-btn" onclick="clearWC()">🗑️ Clear Text</button>
+    </div>
+    <div class="seo-card">
+      <h2>Why Use a Word Counter?</h2>
+      <p>A word counter helps writers, students and bloggers track the length of their content. Blog posts should be 1,500 to 2,500 words for good Google rankings. Academic essays typically require specific word counts. Social media posts have character limits.</p>
+      <p>This free word counter also counts characters, sentences and paragraphs — giving you a complete analysis of your text in real time.</p>
+    </div>
+    <div class="table-card"><div class="card-title">📊 Common Word Count Guidelines</div>
+      <table><tr><th>Content Type</th><th>Recommended Words</th></tr>
+        <tr><td>Tweet / X post</td><td>Under 280 characters</td></tr>
+        <tr><td>Short blog post</td><td>500 – 800 words</td></tr>
+        <tr><td>Standard blog post</td><td>1,000 – 1,500 words</td></tr>
+        <tr><td>SEO blog post</td><td>1,500 – 2,500 words</td></tr>
+        <tr><td>Short story</td><td>1,000 – 7,500 words</td></tr>
+        <tr><td>Novel</td><td>50,000 – 100,000 words</td></tr>
+      </table>
+    </div>
+    <div class="related-card"><div class="card-title">🔗 Related Tools</div>
+      <span class="tag-link" onclick="showTool('age-calculator')">🎂 Age Calculator</span>
+      <span class="tag-link" onclick="showTool('percentage-calculator')">💯 Percentage Calculator</span>
+    </div>
+    <div class="faq-card"><div class="card-title">❓ Frequently Asked Questions</div>
+      <div class="faq-item"><div class="faq-q">How many words should a blog post be for SEO?</div><div class="faq-a">For good Google rankings aim for 1,500 to 2,500 words. Longer content tends to rank higher because it covers the topic more thoroughly.</div></div>
+      <div class="faq-item"><div class="faq-q">Does this count spaces as characters?</div><div class="faq-a">Yes. The character count includes spaces. This is the standard method used by most publishers and social media platforms.</div></div>
+      <div class="faq-item"><div class="faq-q">How many words can I read per minute?</div><div class="faq-a">The average adult reads about 200 to 250 words per minute. A 1,500-word blog post takes about 6 minutes to read.</div></div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-logo">🔧 QuickConvert Tools</div>
+  <div class="footer-links">
+    <a onclick="showTool('mm-to-inches')">MM to Inches</a>
+    <a onclick="showTool('cm-to-inches')">CM to Inches</a>
+    <a onclick="showTool('kg-to-lbs')">KG to LBS</a>
+    <a onclick="showTool('bmi-calculator')">BMI Calculator</a>
+    <a onclick="showTool('calorie-calculator')">Calorie Calculator</a>
+    <a onclick="showTool('water-intake')">Water Intake</a>
+    <a onclick="showTool('percentage-calculator')">Percentage</a>
+    <a onclick="showTool('discount-calculator')">Discount</a>
+    <a onclick="showTool('tip-calculator')">Tip Calculator</a>
+    <a onclick="showTool('cups-to-ml')">Cups to ML</a>
+    <a onclick="showTool('oven-temperature')">Oven Temp</a>
+    <a onclick="showTool('tbsp-to-cups')">Tbsp to Cups</a>
+    <a onclick="showTool('celsius-to-fahrenheit')">Celsius to F</a>
+    <a onclick="showTool('mph-to-kmh')">MPH to KM/H</a>
+    <a onclick="showTool('age-calculator')">Age Calculator</a>
+    <a onclick="showTool('word-counter')">Word Counter</a>
+  </div>
+  <p>© 2025 QuickConvert Tools · 16 free tools · No signup needed · Free forever</p>
+</footer>
+
+<script>
+function showTool(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-'+id).classList.add('active');
+  window.scrollTo(0,0);
+}
+function goHome(){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-home').classList.add('active');
+  window.scrollTo(0,0);
+}
+function searchTools(){
+  var q=document.getElementById('search').value.toLowerCase();
+  document.querySelectorAll('#tools-grid .tool-card').forEach(function(c){
+    c.style.display=c.innerText.toLowerCase().includes(q)?'block':'none';
+  });
+}
+// CONVERTERS
+function convertMM(){var v=document.getElementById('mm-val').value;if(!v)return alert('Enter a number!');document.getElementById('mm-output').innerText=v+' mm = '+(v/25.4).toFixed(4)+' inches';document.getElementById('mm-result').style.display='block';}
+function convertCM(){var v=document.getElementById('cm-val').value;if(!v)return alert('Enter a number!');var i=(v/2.54).toFixed(4);var f=Math.floor(i/12);var r=(i%12).toFixed(1);document.getElementById('cm-output').innerText=v+' cm = '+i+' inches ('+f+' ft '+r+' in)';document.getElementById('cm-result').style.display='block';}
+function convertKG(){var v=document.getElementById('kg-val').value;if(!v)return alert('Enter a number!');document.getElementById('kg-output').innerText=v+' kg = '+(v*2.2046).toFixed(3)+' pounds';document.getElementById('kg-result').style.display='block';}
+// HEALTH
+function calcBMI(){
+  var w=document.getElementById('bmi-weight').value;
+  var h=document.getElementById('bmi-height').value;
+  if(!w||!h)return alert('Enter weight and height!');
+  var bmi=(w/((h/100)*(h/100))).toFixed(1);
+  var cat=bmi<18.5?'Underweight ⚠️':bmi<25?'Normal weight ✅':bmi<30?'Overweight ⚠️':'Obese ❌';
+  document.getElementById('bmi-output').innerText='BMI: '+bmi+' — '+cat;
+  document.getElementById('bmi-result').style.display='block';
+}
+function calcCalories(){
+  var age=document.getElementById('cal-age').value;
+  var w=document.getElementById('cal-weight').value;
+  var h=document.getElementById('cal-height').value;
+  var g=document.getElementById('cal-gender').value;
+  var a=parseFloat(document.getElementById('cal-activity').value);
+  if(!age||!w||!h)return alert('Fill all fields!');
+  var bmr=g==='male'?(10*w)+(6.25*h)-(5*age)+5:(10*w)+(6.25*h)-(5*age)-161;
+  var cal=Math.round(bmr*a);
+  document.getElementById('cal-output').innerText=cal+' calories/day';
+  document.getElementById('cal-result').style.display='block';
+}
+function calcWater(){
+  var w=document.getElementById('water-weight').value;
+  var a=parseInt(document.getElementById('water-activity').value);
+  if(!w)return alert('Enter your weight!');
+  var ml=Math.round(w*a);
+  var l=(ml/1000).toFixed(1);
+  var glasses=Math.round(ml/240);
+  document.getElementById('water-output').innerText=l+' litres ('+glasses+' glasses) per day';
+  document.getElementById('water-result').style.display='block';
+}
+// FINANCE
+function calcPct(){
+  var x=document.getElementById('pct-x').value;
+  var y=document.getElementById('pct-y').value;
+  if(!x||!y)return alert('Fill both fields!');
+  var r=(y*x/100).toFixed(2);
+  document.getElementById('pct-output').innerText=x+'% of '+y+' = '+r;
+  document.getElementById('pct-result').style.display='block';
+}
+function calcPctOf(){
+  var a=document.getElementById('pct-a').value;
+  var b=document.getElementById('pct-b').value;
+  if(!a||!b)return alert('Fill both fields!');
+  var r=(a/b*100).toFixed(2);
+  document.getElementById('pct-of-output').innerText=a+' is '+r+'% of '+b;
+  document.getElementById('pct-of-result').style.display='block';
+}
+function calcDiscount(){
+  var p=document.getElementById('disc-price').value;
+  var d=document.getElementById('disc-pct').value;
+  if(!p||!d)return alert('Fill both fields!');
+  var save=(p*d/100).toFixed(2);
+  var final=(p-save).toFixed(2);
+  document.getElementById('disc-output').innerText='Final price: $'+final+' (save $'+save+')';
+  document.getElementById('disc-result').style.display='block';
+}
+function calcTip(){
+  var b=document.getElementById('tip-bill').value;
+  var t=document.getElementById('tip-pct').value;
+  var p=document.getElementById('tip-people').value||1;
+  if(!b)return alert('Enter bill amount!');
+  var tip=(b*t/100).toFixed(2);
+  var total=(parseFloat(b)+parseFloat(tip)).toFixed(2);
+  var per=(total/p).toFixed(2);
+  document.getElementById('tip-output').innerText='Tip: $'+tip+' | Total: $'+total+' | Per person: $'+per;
+  document.getElementById('tip-result').style.display='block';
+}
+// COOKING
+function convertCups(){var v=document.getElementById('cups-val').value;if(!v)return alert('Enter a number!');var ml=(v*236.588).toFixed(0);document.getElementById('cups-output').innerText=v+' cups = '+ml+' ml';document.getElementById('cups-result').style.display='block';}
+function convertOven(){var c=document.getElementById('oven-c').value;if(!c)return alert('Enter temperature!');var f=((c*9/5)+32).toFixed(0);var gas=Math.round((c-121)/14);document.getElementById('oven-output').innerText=c+'°C = '+f+'°F (Gas Mark '+Math.max(1,gas)+')';document.getElementById('oven-result').style.display='block';}
+function convertTbsp(){var v=document.getElementById('tbsp-val').value;if(!v)return alert('Enter a number!');var cups=(v/16).toFixed(3);var ml=(v*14.787).toFixed(0);document.getElementById('tbsp-output').innerText=v+' tbsp = '+cups+' cups = '+ml+' ml';document.getElementById('tbsp-result').style.display='block';}
+// SCIENCE
+function convertCel(){var v=document.getElementById('cel-val').value;if(!v)return alert('Enter temperature!');var f=((v*9/5)+32).toFixed(1);document.getElementById('cel-output').innerText=v+'°C = '+f+'°F';document.getElementById('cel-result').style.display='block';}
+function convertMPH(){var v=document.getElementById('mph-val').value;if(!v)return alert('Enter speed!');var k=(v*1.60934).toFixed(2);document.getElementById('mph-output').innerText=v+' mph = '+k+' km/h';document.getElementById('mph-result').style.display='block';}
+// AGE
+function calcAge(){
+  var dob=document.getElementById('dob-val').value;
+  if(!dob)return alert('Enter your date of birth!');
+  var b=new Date(dob),t=new Date();
+  var y=t.getFullYear()-b.getFullYear();
+  var m=t.getMonth()-b.getMonth();
+  var d=t.getDate()-b.getDate();
+  if(d<0){m--;d+=new Date(t.getFullYear(),t.getMonth(),0).getDate();}
+  if(m<0){y--;m+=12;}
+  var tot=Math.floor((t-b)/86400000);
+  document.getElementById('r-years').innerText=y;
+  document.getElementById('r-months').innerText=m;
+  document.getElementById('r-days').innerText=d;
+  document.getElementById('r-total').innerText=tot.toLocaleString();
+  document.getElementById('age-result').style.display='block';
+}
+// WORD COUNTER
+function countWords(){
+  var t=document.getElementById('wc-text').value;
+  document.getElementById('wc-words').innerText=(t.trim()===''?0:t.trim().split(/\s+/).length).toLocaleString();
+  document.getElementById('wc-chars').innerText=t.length.toLocaleString();
+  document.getElementById('wc-sentences').innerText=(t.trim()===''?0:t.split(/[.!?]+/).filter(s=>s.trim()).length).toLocaleString();
+  document.getElementById('wc-paragraphs').innerText=(t.trim()===''?0:t.split(/\n+/).filter(p=>p.trim()).length).toLocaleString();
+}
+function clearWC(){document.getElementById('wc-text').value='';countWords();}
+</script>
+</body>
+</html>
